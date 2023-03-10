@@ -7,6 +7,6 @@ router.get("/", mainInfoController.getMainInfo);
 
 router.post("/", mainInfoController.createMainInfo);
 
-router.put("/:id", mainInfoController.updateMainInfo);
+router.patch("/:id", mainInfoController.updateMainInfo);
 
 export { router as mainInfoRoute };

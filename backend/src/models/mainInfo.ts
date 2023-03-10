@@ -5,7 +5,7 @@ import { ModelsTemplate } from './ModelsTemplate';
 // Main Info Schema
 const MainInfoSchema: Schema = new Schema({        
     name: { type: String, required: true },
-    heroTitle: { type: String, required: true },
+    'hero-title': { type: String, required: true },
     heroImage: { type: String, required: true },
     personalImage: { type: String, required: true },
     aboutMe: { type: String, required: true },
@@ -29,9 +29,9 @@ const MainInfoSchema: Schema = new Schema({
 // Main Info Validation schema
 export const MainInfoValidationSchema = Joi.object({
     name: Joi.string().required(),
-    heroTitle: Joi.string().required(),
-    heroImage: Joi.string().uri().required(),
-    personalImage: Joi.string().uri().required(),
+    'hero-title': Joi.string().required(),
+    heroImage: Joi.string().uri(),
+    personalImage: Joi.string().uri(),
     aboutMe: Joi.string().required(),
     email: Joi.string(),
     phone: Joi.string(),
@@ -42,7 +42,7 @@ export const MainInfoValidationSchema = Joi.object({
 export interface MainInfoDoc extends Document {    
     id: string;
     name: string;
-    heroTitle: string;
+    'hero-title': string;
     heroImage: string;
     personalImage: string;
     aboutMe: string;
