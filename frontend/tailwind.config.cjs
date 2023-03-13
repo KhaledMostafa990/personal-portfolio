@@ -3,6 +3,7 @@ module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     screens: {
+      xs: '320px',
       sm: '480px',
       md: '768px',
       lg: '1024px',
@@ -13,7 +14,8 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        primary: ['var(--font-family-primary)'],
+        primary: ['var(--font-family-main)'],
+        publicSans: ['var(--font-family-publicSans)'],
       },
 
       fontSize: {
@@ -34,7 +36,7 @@ module.exports = {
         base: [
           '16px',
           {
-            lineHeight: '25px',
+            lineHeight: '30px',
           },
         ],
         lg: [
@@ -70,15 +72,17 @@ module.exports = {
         '4xl': [
           '40px',
           {
-            lineHeight: '48px',
-            letterSpacing: '2px',
+            lineHeight: '42px',
+            letterSpacing: '-.36px',
+            fontWeight: '700',
           },
         ],
         '5xl': [
-          '48px',
+          '50px',
           {
-            lineHeight: '48px',
-            letterSpacing: '2px',
+            lineHeight: '41px',
+            letterSpacing: '-0.45px',
+            fontWeight: '700',
           },
         ],
         '6xl': [],

@@ -1,29 +1,36 @@
 import './globals.scss';
-import { Ibarra_Real_Nova } from 'next/font/google';
+import { Ibarra_Real_Nova, Public_Sans } from 'next/font/google';
 
 import ReduxProvider from '@/store/ReduxProvider';
 
 import Header from '@/features/Header';
+import Footer from '@/features/Footer';
 
-const jostFont = Ibarra_Real_Nova({ subsets: ["latin"], variable: '--font-family-primary' });
+const IbarraRealFont = Ibarra_Real_Nova({
+  subsets: ['latin'],
+  variable: '--font-family-main',
+});
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const publicSansFont = Public_Sans({
+  subsets: ['latin'],
+  variable: '--font-family-publicSans',
+});
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className='scroll-smooth'>
-        <div className={`${jostFont.variable} font-primary`}>
+      <body
+        className={`${IbarraRealFont.variable} ${publicSansFont.variable} font-primary scroll-smooth`}
+      >
+        <div>
           <ReduxProvider>
             <Header />
 
-            <main className='relative overflow-hidden translate-y-24 xl:translate-y-40 pb-10 xl:pb-16 flex flex-col gap-20 xl:gap-40'>
-            {children}
+            <main className="relative overflow-hidden pt-24 flex flex-col gap-24 lg:gap-40 lg:pt-40">
+              {children}
             </main>
-            
-            {/* <Footer /> */}
+
+            <Footer />
           </ReduxProvider>
         </div>
       </body>
@@ -33,12 +40,13 @@ export default function RootLayout({
 
 export const metadata = {
   title: {
-    default: "Minimalist Portfolio",
-    template: "%s | Minimalist Portfolio "
+    default: 'Minimalist Portfolio',
+    template: '%s | Minimalist Portfolio ',
   },
 
-  description: "I’m a junior front-end developer looking for a new role in an exciting company. I focus on writing accessible HTML, using modern CSS practices and writing clean JavaScript.",
-  creator: "Khaled Farghly",
+  description:
+    'I’m a junior front-end developer looking for a new role in an exciting company. I focus on writing accessible HTML, using modern CSS practices and writing clean JavaScript.',
+  creator: 'Khaled Farghly',
 
   icons: {
     icon: '/images/favicon-32x32.png',
@@ -63,26 +71,26 @@ export const metadata = {
   },
 
   openGraph: {
-    type: "website",
-    locale: "en_IE",
-    url: "https://designo-company-portoflio.netlify.app/",
-    siteName: "Minimalist Portfolio",
-    title: "Minimalist Portfolio",
-    description: "Designo is over 10 years in the industry, we are experienced in creating fully responsive websites, app design, and engaging brand experiences.",
+    type: 'website',
+    locale: 'en_IE',
+    // url: 'https://designo-company-portoflio.netlify.app/',
+    siteName: 'Minimalist Portfolio',
+    title: 'Minimalist Portfolio',
+    description:
+      'Designo is over 10 years in the industry, we are experienced in creating fully responsive websites, app design, and engaging brand experiences.',
     images: [
       {
-        url: "/assets/about/desktop/image-about-hero.jpg",
+        url: '/images/homepage/desktop/image-homepage-hero.jpg',
         width: 1200,
         height: 630,
-        alt: "Minimalist Portfolio Website",
+        alt: 'Minimalist Portfolio Website',
       },
       {
-        url: "/assets/about/desktop/image-about-hero.jpg",
+        url: '/images/homepage/desktop/image-homepage-hero.jpg',
         width: 600,
         height: 315,
-        alt: "Minimalist Portfolio Website",
+        alt: 'Minimalist Portfolio Website',
       },
     ],
   },
-
-}
+};

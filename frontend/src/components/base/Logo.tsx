@@ -1,25 +1,17 @@
-import Image from 'next/image';
 import React from 'react';
 
-export function Logo({
-  className,
-  wrapperClasses,
-  logoSrc,
-}: {
-  className?: string;
-  wrapperClasses?: string;
-  logoSrc: string;
-}) {
+export function Logo({ onLight }: { onLight?: boolean }) {
   return (
     <>
-      <figure className={`flex items-center ${wrapperClasses}`}>
-        <Image
-          className={`object-cover max-w-[202px] max-h-[27px] ${className}`}
-          src={logoSrc}
-          alt={'logo img'}
-          priority
-        />
-      </figure>
+      <div className={`flex items-center`}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="61" height="32">
+          <path
+            fill={` ${onLight ? '#33323D' : '#fff'}`}
+            fill-rule="evenodd"
+            d="M60.082 5.878L44.408 32 28.735 5.878h31.347zM15.673 0l15.674 26.122H0L15.673 0z"
+          />
+        </svg>
+      </div>
     </>
   );
 }

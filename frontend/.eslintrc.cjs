@@ -2,16 +2,18 @@ module.exports = {
   parserOptions: {
     project: ['./tsconfig.json'],
   },
-  extends: [
-    'next/core-web-vitals',
-    'airbnb-base',
-    'airbnb-typescript',
-    'plugin:prettier/recommended',
-  ],
+  extends: ['airbnb-base', 'airbnb-typescript', 'plugin:prettier/recommended', 'prettier'],
   rules: {
-    'no-underscore-dangle': false,
-    'import/prefer-default-export': false,
-    '@typescript-eslint/no-use-before-define': false,
-    'no-param-reassign': false,
+    'react/jsx-filename-extension': 0,
+    'import/extensions': 0,
+    'no-underscore-dangle': 0,
+    'import/prefer-default-export': 0,
+    '@typescript-eslint/no-use-before-define': 0,
+    'no-param-reassign': 0,
+  },
+  env: {
+    browser: true,
+    node: true,
+    es6: true,
   },
 };
