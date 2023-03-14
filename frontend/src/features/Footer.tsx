@@ -6,39 +6,53 @@ import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import { GlobalData } from '@/store/client/globalData';
 
-import { Logo } from '@/components/base';
+import { Logo, SecondaryButton } from '@/components/base';
 import { NavBar, Section, Row } from '@/components/layout';
 
 export default function Footer() {
-  const { navListItems, socialMediaIcons } = useSelector(
+  const { navListItems, socialMediaIcons, contactHeading, contactCtaText } = useSelector(
     ({ globalData }: { globalData: GlobalData }) => globalData,
   );
 
   return (
-    <footer className="mt-20 lg-mt-40">
-      <Section gridContainer className="bg-dark-grey py-14 md:py-5">
-        <Row className="flex flex-col gap-8 md:gap-0 md:flex-row md:justify-between">
-          <div className="flex flex-col gap-2 justify-center items-center md:flex-row">
-            <Link href={'/'}>
-              <Logo onLight={false} />
-            </Link>
+    <>
+      <footer className="mt-20 flex flex-col gap-20 md:mt-40 md:gap-40">
+        <Section gridContainer>
+          <Row className="flex flex-col gap-16">
+            <div className="flex flex-col items-center justify-center gap-6 md:flex-row md:gap-10">
+              <h2 className="max-w-xs pb-10 text-center text-4xl text-dark-grey md:max-w-md md:pb-0">
+                {contactHeading}
+              </h2>
+              <hr className="hidden w-full border border-light-grey md:block" />
+              <SecondaryButton classes="max-w-fit">{contactCtaText}</SecondaryButton>
+            </div>
+          </Row>
+        </Section>
 
-            <NavBar withMenu={false} navListItems={navListItems} />
-          </div>
+        <Section gridContainer className="bg-dark-grey py-14 md:py-5">
+          <Row className="flex flex-col gap-8 md:flex-row md:justify-between md:gap-0">
+            <div className="flex flex-col items-center justify-center gap-2 md:flex-row">
+              <Link href={'/'}>
+                <Logo onLight={false} />
+              </Link>
 
-          <div className="flex justify-center items-center md:justify-end">
-            <ul className="flex gap-5 xl:gap-8">
-              {socialMediaIcons.map((icon) => (
-                <li key={icon.altText}>
-                  <Link href={icon.link}>
-                    <Image src={icon.iconSrc} alt={icon.altText} priority />
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Row>
-      </Section>
-    </footer>
+              <NavBar withMenu={false} navListItems={navListItems} />
+            </div>
+
+            <div className="flex items-center justify-center md:justify-end">
+              <ul className="flex gap-5 xl:gap-8">
+                {socialMediaIcons.map((icon) => (
+                  <li key={icon.altText}>
+                    <Link href={icon.link}>
+                      <Image src={icon.iconSrc} alt={icon.altText} priority />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Row>
+        </Section>
+      </footer>
+    </>
   );
 }

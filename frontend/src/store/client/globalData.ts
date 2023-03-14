@@ -6,12 +6,15 @@ import githubSvg from 'public/images/icons/github.svg';
 import youtubeSvg from 'public/images/icons/youtube.svg';
 
 import { PayloadAction } from '@reduxjs/toolkit';
-import { createSliceReducer } from '../../utils/lib/state/createSliceReducer';
+
+import { createSliceReducer } from '@/utils/lib/state/createSliceReducer';
 
 export interface GlobalData {
   socialMediaIcons: any[];
   navListItems: string[];
   logoSrc: string;
+  contactCtaText: string;
+  contactHeading: string;
 }
 
 const initialState = {
@@ -44,6 +47,8 @@ const initialState = {
   ],
   navListItems: ['Home', 'Portfolio', 'Contact Me'],
   logoSrc: logoIcon,
+  contactCtaText: 'Contact Me',
+  contactHeading: 'Interested in doing a project together?',
 };
 
 const globalDataSlice = createSliceReducer('globalData', initialState, {

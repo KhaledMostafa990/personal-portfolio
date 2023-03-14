@@ -7,8 +7,8 @@ export function Row({ ...props }: RowProps) {
 
   return (
     <div
-      className={`relative overflow-hidden w-full h-auto col-start-2 col-span-10 
-      xl:col-start-0 xl:col-span-12 
+      className={`xl:col-start-0 relative col-span-10 col-start-2 h-auto w-full 
+      overflow-hidden xl:col-span-12 
       ${className ?? ''}
     `}
     >

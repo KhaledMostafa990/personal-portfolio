@@ -33,18 +33,18 @@ export default function Header() {
   if (isDesktop && navRef?.current?.classList.contains('active')) toggleMenu();
 
   return (
-    <header className="z-20 lg:fixed lg:w-full lg:h-[150px] lg:bg-background-default">
+    <header className="z-20 md:fixed md:h-[150px] md:w-full md:bg-background-default">
       <Overlay overlayRef={overlayRef} />
 
       <div
         ref={headerRef}
-        className="container fixed bg-background-default
-          shadow-sm transition-all duration-[0.84s] z-20
-          lg:left-[50%] lg:translate-x-[-50%]"
+        className="container fixed z-20
+        bg-background-default transition-all duration-[0.84s]
+        md:left-[50%] md:translate-x-[-50%]"
       >
         <div
-          className="col-start-2 col-span-10 py-8 flex justify-between items-center transition-all duration-[0.84s]
-          lg:py-16 xl:col-start-0 xl:col-span-12 "
+          className="xl:col-start-0 col-span-10 col-start-2 flex items-center justify-between py-8 transition-all
+          duration-[0.84s] md:py-16 xl:col-span-12 "
         >
           <Link href={'/'}>
             <Logo onLight />

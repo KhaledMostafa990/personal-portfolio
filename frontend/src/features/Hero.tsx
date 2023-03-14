@@ -14,9 +14,9 @@ export default function Hero({ data }: { data: HeroProps }) {
   return (
     <>
       {/* hero image */}
-      <figure className="relative w-full h-auto">
+      <figure className="relative h-auto w-full">
         <Image
-          className="md:hidden lg:block lg:max-[1110px] lg:max-h-[600px]"
+          className="lg:max-[1110px] md:hidden lg:block lg:max-h-[600px]"
           src={image}
           alt="A personal project"
         />
@@ -26,12 +26,12 @@ export default function Hero({ data }: { data: HeroProps }) {
       {/* Hero Content */}
       <div
         className="flex flex-col gap-8
-      md:absolute md:bottom-0 md:pt-8 md:pr-8 md:bg-background-default
+      md:absolute md:bottom-0 md:bg-background-default md:pt-8 md:pr-8
       lg:pr-20"
       >
         <h1
           className=" max-w-md text-4xl text-dark-grey 
-          lg:text-5xl lg:max-w-[310px]"
+          lg:max-w-[310px] lg:text-5xl"
         >
           {heading}
         </h1>

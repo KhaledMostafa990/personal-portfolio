@@ -27,9 +27,10 @@
   "include": [
     "*.cjs",
     "next-env.d.ts",
-    "**/**/**/**/*.ts",
-    "**/**/**/**/*.tsx",
-    ".next/types/**/*.ts"
+    "**/**/**/**/**/*.ts",
+    "**/**/**/**/**/*.tsx",
+    ".next/types/**/*.ts",
+    "prettier.config.cjs"
   ],
   "exclude": ["node_modules"]
 }

@@ -13,9 +13,9 @@ export function SecondaryButton({
   return (
     <>
       <button
-        className={`relative h-11 px-10 flex items-center rounded-sm font-publicSans
-        text-xs font-light uppercase text-dark-grey border hover:bg-dark-grey hover:text-very-light-grey 
-        transition-all duration-500 
+        className={`relative flex h-11 items-center rounded-sm border px-10
+        font-publicSans text-xs font-light uppercase text-dark-grey transition-all duration-500 
+        hover:bg-dark-grey hover:text-very-light-grey 
         ${disabled} ${classes}
       `}
       >

@@ -21,7 +21,7 @@ export const NavBar = ({
       {/* Navigation items */}
       <nav
         ref={navRef}
-        className={`h-fit w-full ${menuClasses} md:max-w-fit md:static md:w-fit md:translate-x-0 md:translate-y-0`}
+        className={`h-fit w-full ${menuClasses} md:static md:w-fit md:max-w-fit md:translate-x-0 md:translate-y-0`}
       >
         <ul
           ref={navListRef}
@@ -35,9 +35,9 @@ export const NavBar = ({
               <li key={index} className={`${withMenu ? '' : 'px-3'} md:px-6`}>
                 <Link
                   href={itemLink}
-                  className={`uppercase block py-4 text-start text-white 
-                  hover:text-primary-default hover:underline transition-all duration-200 border-b-4 border-transparent
-                  md:py-0 ${withMenu ? 'md:text-dark-grey text-xl' : 'text-xs'} md:text-xs `}
+                  className={`block border-b-4 border-transparent py-4 text-start 
+                  uppercase text-white transition-all duration-200 hover:text-primary-default hover:underline
+                  md:py-0 ${withMenu ? 'text-xl md:text-dark-grey' : 'text-xs'} md:text-xs `}
                 >
                   {item}
                 </Link>

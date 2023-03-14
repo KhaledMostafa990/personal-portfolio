@@ -3,9 +3,9 @@ import React from 'react';
 export function HamburgerButton({ onClick, menuBtnRef }: { onClick: any; menuBtnRef: any }) {
   return (
     <>
-      <div className="lg:hidden flex items-center z-40">
+      <div className="z-40 flex items-center md:hidden">
         <button
-          className="custom-hamburger-menu w-[28px] h-[19.5px] flex gap-[6px]"
+          className="custom-hamburger-menu flex h-[19.5px] w-[28px] gap-[6px]"
           onClick={onClick}
           ref={menuBtnRef}
           type="button"
@@ -13,9 +13,9 @@ export function HamburgerButton({ onClick, menuBtnRef }: { onClick: any; menuBtn
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span className=" bg-background-black block w-7 h-[2.5px]" />
-          <span className=" bg-background-black block w-7 h-[2.5px]" />
-          <span className=" bg-background-black block w-7 h-[2.5px]" />
+          <span className=" block h-[2.5px] w-7 bg-background-black" />
+          <span className=" block h-[2.5px] w-7 bg-background-black" />
+          <span className=" block h-[2.5px] w-7 bg-background-black" />
         </button>
       </div>
     </>

@@ -20,13 +20,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body
-        className={`${IbarraRealFont.variable} ${publicSansFont.variable} font-primary scroll-smooth`}
+        className={`${IbarraRealFont.variable} ${publicSansFont.variable} scroll-smooth font-primary`}
       >
         <div>
           <ReduxProvider>
             <Header />
 
-            <main className="relative overflow-hidden pt-24 flex flex-col gap-24 lg:gap-40 lg:pt-40">
+            <main className="relative flex flex-col gap-24 overflow-hidden pt-24 md:gap-40 md:pt-40">
               {children}
             </main>
 
@@ -40,10 +40,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 export const metadata = {
   title: {
-    default: 'Minimalist Portfolio',
-    template: '%s | Minimalist Portfolio ',
+    default: "Alex Spencer's",
+    template: '%s | Alex Spencer',
   },
-
   description:
     'I’m a junior front-end developer looking for a new role in an exciting company. I focus on writing accessible HTML, using modern CSS practices and writing clean JavaScript.',
   creator: 'Khaled Farghly',
@@ -73,7 +72,7 @@ export const metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_IE',
-    // url: 'https://designo-company-portoflio.netlify.app/',
+    // url: 'https://Alex-Minimalist-Portoflio.vercel.app/',
     siteName: 'Minimalist Portfolio',
     title: 'Minimalist Portfolio',
     description:
