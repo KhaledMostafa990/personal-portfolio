@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 
 import { useSelector } from 'react-redux';
@@ -8,9 +7,10 @@ import { GlobalData } from '@/store/client/globalData';
 
 import { Logo, SecondaryButton } from '@/components/base';
 import { NavBar, Section, Row } from '@/components/layout';
+import { SocialIcons } from '../components/SocialIcons';
 
 export default function Footer() {
-  const { navListItems, socialMediaIcons, contactHeading, contactCtaText } = useSelector(
+  const { navListItems, contactHeading, contactCtaText } = useSelector(
     ({ globalData }: { globalData: GlobalData }) => globalData,
   );
 
@@ -43,17 +43,7 @@ export default function Footer() {
               <NavBar withMenu={false} navListItems={navListItems} />
             </div>
 
-            <div className="flex items-center justify-center md:justify-end">
-              <ul className="flex gap-5 xl:gap-8">
-                {socialMediaIcons.map((icon) => (
-                  <li key={icon.altText}>
-                    <Link href={icon.link}>
-                      <Image src={icon.iconSrc} alt={icon.altText} priority />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <SocialIcons />
           </Row>
         </Section>
       </footer>

@@ -4,10 +4,12 @@ export function PrimaryButton({
   children,
   classes,
   isDisabled,
+  withIcon,
 }: {
   children: React.ReactNode;
   classes?: string;
   isDisabled?: boolean;
+  withIcon?: boolean;
 }) {
   const disabled = isDisabled ? 'bg-light-grey' : 'bg-dark-blue';
   return (
@@ -19,20 +21,22 @@ export function PrimaryButton({
         ${classes}
       `}
       >
-        <div className={`flex h-full items-center justify-center bg-black/10 px-5`}>
-          <svg
-            className=" stroke-primary-default group-hover:stroke-white group-disabled:stroke-white"
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="14"
-          >
-            <g fill="none" fillRule="evenodd">
-              <path d="M0 9l8 4 8-4" />
-              <path opacity=".5" d="M0 5l8 4 8-4" />
-              <path opacity=".25" d="M0 1l8 4 8-4" />
-            </g>
-          </svg>
-        </div>
+        {withIcon && (
+          <div className={`flex h-full items-center justify-center bg-black/10 px-5`}>
+            <svg
+              className=" stroke-primary-default group-hover:stroke-white group-disabled:stroke-white"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="14"
+            >
+              <g fill="none" fillRule="evenodd">
+                <path d="M0 9l8 4 8-4" />
+                <path opacity=".5" d="M0 5l8 4 8-4" />
+                <path opacity=".25" d="M0 1l8 4 8-4" />
+              </g>
+            </svg>
+          </div>
+        )}
 
         {children}
       </button>

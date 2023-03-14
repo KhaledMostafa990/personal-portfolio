@@ -35,7 +35,9 @@ export default function Hero({ data }: { data: HeroProps }) {
         >
           {heading}
         </h1>
-        <PrimaryButton classes="max-w-fit">{ctaText}</PrimaryButton>
+        <PrimaryButton withIcon classes="max-w-fit">
+          {ctaText}
+        </PrimaryButton>
       </div>
     </>
   );
