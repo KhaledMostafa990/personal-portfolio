@@ -10,7 +10,7 @@ interface SectionProps {
 
 export function Section({ children, className, id, dataSection, gridContainer }: SectionProps) {
   return (
-    <section id={id} data-section={dataSection} className={`min-h-full  ${className}`}>
+    <section id={id} data-section={dataSection} className={` ${className}`}>
       {gridContainer ? <div className="container">{children}</div> : <div>{children}</div>}
     </section>
   );

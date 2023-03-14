@@ -20,11 +20,15 @@ export default function Footer() {
         <Section gridContainer>
           <Row className="flex flex-col gap-16">
             <div className="flex flex-col items-center justify-center gap-6 md:flex-row md:gap-10">
-              <h2 className="max-w-xs pb-10 text-center text-4xl text-dark-grey md:max-w-md md:pb-0">
+              <h3 className=" min-w-[320px] max-w-xs  pb-10 text-center text-4xl text-dark-grey md:flex-1 md:pb-0">
                 {contactHeading}
-              </h2>
-              <hr className="hidden w-full border border-light-grey md:block" />
-              <SecondaryButton classes="max-w-fit">{contactCtaText}</SecondaryButton>
+              </h3>
+
+              <hr className="hidden border border-light-grey md:block md:flex-1" />
+
+              <Link className="md:min-w-fit" href={'/contact-me'}>
+                <SecondaryButton classes="">{contactCtaText}</SecondaryButton>
+              </Link>
             </div>
           </Row>
         </Section>

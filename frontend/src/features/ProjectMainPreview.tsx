@@ -1,17 +1,10 @@
 import Image from 'next/image';
 import { SecondaryButton } from '@/components/base';
 import Link from 'next/link';
+import { Project } from '@/store/client/globalData';
 
-interface HeroProps {
-  id: string;
-  name: string;
-  description: string;
-  ctaText: string;
-  image: any;
-}
-
-export default function ProjectMainPreview({ data }: { data: HeroProps }) {
-  const { id, name, description, ctaText, image } = data;
+export default function ProjectMainPreview({ data }: { data: Project }) {
+  const { id, name, description, mainImage } = data;
 
   return (
     <>
@@ -19,7 +12,7 @@ export default function ProjectMainPreview({ data }: { data: HeroProps }) {
       <figure className="relative flex h-auto w-full justify-center md:max-w-fit md:flex-1 md:justify-start">
         <Image
           className="h-auto max-h-[540px] w-[500px] max-w-[500px]"
-          src={image}
+          src={mainImage}
           alt="A personal project"
         />
       </figure>
@@ -29,7 +22,7 @@ export default function ProjectMainPreview({ data }: { data: HeroProps }) {
         <h2 className="max-w-md pt-8 text-4xl text-dark-grey lg:max-w-[310px]">{name}</h2>
         <p className="max-w-lg text-dark-grey md:max-w-xs">{description}</p>
         <Link href={`/portfolio/${id}`}>
-          <SecondaryButton classes="max-w-fit">{ctaText}</SecondaryButton>
+          <SecondaryButton classes="max-w-fit">View Project</SecondaryButton>
         </Link>
       </div>
     </>
