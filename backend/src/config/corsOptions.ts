@@ -1,11 +1,9 @@
 import { CorsOptions } from 'cors';
+import { FRONTEND_URL } from '.';
 
-export const allowedOrigins = [
-  'http://127.0.0.1:8080',
-  'http://127.0.0.1:3000',
-  'http://localhost:8080',
-  'http://localhost:3000',
-];
+
+
+export const allowedOrigins = [FRONTEND_URL];
 
 export const corsOptions: CorsOptions = {
   origin: (origin, callback) => {
@@ -16,5 +14,7 @@ export const corsOptions: CorsOptions = {
     }
   },
   optionsSuccessStatus: 200,
-  // credentials: true,
+  credentials: true,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  allowedHeaders: 'Content-Type,Authorization,Accept,Acecept-Language,Access-Control-Allow-Origin',
 };

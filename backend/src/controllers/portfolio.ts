@@ -40,8 +40,49 @@ class ProjectController {
     async createProject(req: Request, res: Response) {                      
         try {
             await this.uploadProjectFiles(req, res, async () => {                    
-                const project = await this.model.create(req.body.value);
-                res.status(200).json({ project });
+                const projectCount = await this.model.countDocuments();
+                let currentProject;
+
+                console.log(projectCount)
+                if (projectCount === 0) {                    
+                    currentProject = await this.model.create(req.body.value);
+                    currentProject.nextProject = {id:currentProject.id, name:currentProject.name};
+                    currentProject.previousProject = {id:currentProject.id, name:currentProject.name};                    
+                } else if (projectCount === 1) {
+                    let firstProject = await this.model.findOne({}).sort({createdAt: 1});
+                    currentProject = await this.model.create(req.body.value);
+                    
+                    if(firstProject !== null) {
+                        currentProject.nextProject= { id:firstProject.id, name:firstProject.name }
+                        currentProject.previousProject= { id:firstProject.id, name:firstProject.name }
+                        
+                        firstProject.nextProject= { id: currentProject.id, name: currentProject.name }
+                        firstProject.previousProject= { id: currentProject.id, name: currentProject.name }
+                        
+                        console.log(firstProject);
+                        await firstProject.save();                        
+                    }
+                } else {
+                    const firstProject = await this.model.findOne({}).sort({createdAt: 1});
+                    const lastProject = await this.model.findOne({}).sort({createdAt: -1});
+                    currentProject = await this.model.create(req.body.value);
+
+                    if(lastProject && firstProject) {
+                        currentProject.nextProject = {id:firstProject.id, name:firstProject.name}       
+                        currentProject.previousProject = {id:lastProject.id, name:lastProject.name}       
+
+                        lastProject.nextProject = {id:currentProject.id, name:currentProject.name}                        
+                        firstProject.previousProject ={id:currentProject.id, name:currentProject.name}   
+                        
+                        console.log("first:",firstProject , "last:", lastProject);
+                        await firstProject.save();
+                        await lastProject.save();
+                    }
+                }
+                
+                console.log("current:",currentProject);
+                await currentProject.save();
+                res.status(200).json({ currentProject });
             });
 
         }
@@ -76,17 +117,15 @@ class ProjectController {
 
     async uploadProjectFiles(req: Request, res: Response, next: NextFunction) {
     uploadProjectImages.fields([
-        { name: 'main-image-url', maxCount: 1 },
-        { name: 'hero-image-url', maxCount: 1 },
-        { name: 'showcase-images-urls', maxCount: 3}                                        
+        { name: 'mainImageUrls', maxCount: 6 },
+        { name: 'heroImageUrls', maxCount: 6 },
+        { name: 'showcaseImagesUrls', maxCount: 8}                                        
     ])(req, res, async (err: any) => {
         if (err) {
             console.error(err);
             return res.status(400).json({ error: "Failed to upload images" });
         }
-
-        req.body['built-with'] = req.body['built-with'].split(',');
-
+        
         const {error, value} = this.validateProject(req.body as ProjectDoc);
 
         if (error) {
@@ -100,14 +139,14 @@ class ProjectController {
         }
 
         const { 
-            'main-image-url':mainImageUrl,
-             'hero-image-url':heroImageUrl,
-             'showcase-images-urls': showcaseImagesUrls 
+            mainImageUrls,
+            heroImageUrls,
+            showcaseImagesUrls
         }:any = req.files;
 
-        value.mainImageUrl = mainImageUrl[0].path;
-        value.heroImageUrl = heroImageUrl[0].path;
-        value.showcaseImagesUrls = showcaseImagesUrls.map((file: Express.Multer.File) => file.path);
+        value.mainImageUrls = mainImageUrls.map((file: Express.Multer.File) => file.filename);
+        value.heroImageUrls = heroImageUrls.map((file: Express.Multer.File) => file.filename);
+        value.showcaseImagesUrls = showcaseImagesUrls.map((file: Express.Multer.File) => file.filename);
 
         req.body.value = value;
         next();
