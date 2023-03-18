@@ -1,9 +1,9 @@
-import { Model } from 'mongoose';
+import { Document, ProjectionType , FilterQuery, Model } from 'mongoose';
 
-export abstract class ModelsTemplate {
-  protected model: Model<any>;
+export abstract class ModelsTemplate<T extends Document> {
+  protected model: Model<T>;
 
-  constructor(model: Model<any>) {
+  constructor(model: Model<T>) {
     this.model = model;
   }
 
@@ -11,8 +11,8 @@ export abstract class ModelsTemplate {
     return await this.model.create(data);
   }
 
-  async findOne(queries: {}) {
-    return await this.model.findOne({ ...queries });
+  findOne(queries: FilterQuery<T>, projection?: ProjectionType<T>)  {
+     return this.model.findOne(queries, projection);    
   }
 
   async updateOne(id: string, data: any) {
@@ -25,5 +25,9 @@ export abstract class ModelsTemplate {
 
   async findAll(queries: {}) {
     return await this.model.find({ ...queries });
+  }
+
+  async countDocuments () {
+    return await this.model.countDocuments();
   }
 }
