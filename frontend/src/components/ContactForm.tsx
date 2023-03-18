@@ -6,23 +6,19 @@ import * as Yup from 'yup';
 
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import { PrimaryButton } from '@/components/base';
+import {
+  postContactMessage,
+  ContactFormInputProps,
+  ContactInputsValues,
+} from '@/store/server/contact';
 
-export interface ContactInputsValues {
-  name: string;
-  email: string;
-  message: string;
-  button?: string;
-}
-
-export interface ContactFormProps {
-  label: string;
-  type: string;
-  name: string;
-  placeholder?: string;
-  required?: boolean;
-}
-
-export function ContactForm({ formInputs }: { formInputs: ContactFormProps[] }) {
+export function ContactForm({
+  formInputs,
+  sendMessageUrl,
+}: {
+  formInputs: ContactFormInputProps[];
+  sendMessageUrl: string;
+}) {
   const ContactFormSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
     email: Yup.string().email('Invalid email address').required('Email is required'),
@@ -34,22 +30,17 @@ export function ContactForm({ formInputs }: { formInputs: ContactFormProps[] }) 
     { setSubmitting }: FormikHelpers<ContactInputsValues>,
   ) => {
     try {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const data = await fetch('/api/v1/contact/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(values),
-      });
-      alert('Thank you for your message! We will be in touch soon.');
+      const success = await postContactMessage(sendMessageUrl, values);
+      if (success) {
+        alert('Thank you for your message! We will be in touch soon.');
+      }
       setSubmitting(false);
     } catch (error) {
       console.error(error);
       alert('Oops! Something went wrong. Please try again later.');
       setSubmitting(false);
     }
-    setSubmitting(false); // Todo: Remove when API completed
+    // setSubmitting(false); // Todo: Remove when API completed
   };
   const validateInput = (input: string, getFieldMeta: any) => {
     return !!(getFieldMeta(input).touched && !getFieldMeta(input).error);

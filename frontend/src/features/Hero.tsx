@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { PrimaryButton } from '@/components/base';
 
-interface HeroProps {
+export interface HeroProps {
   heading: string;
   ctaText: string;
   image: any;
@@ -16,11 +16,19 @@ export default function Hero({ data }: { data: HeroProps }) {
       {/* hero image */}
       <figure className="relative h-auto w-full">
         <Image
+          width={1110}
+          height={600}
           className="lg:max-[1110px] md:hidden lg:block lg:max-h-[600px]"
           src={image}
           alt="A personal project"
         />
-        <Image className="hidden md:block lg:hidden" src={imageTablet} alt="A personal project" />
+        <Image
+          width={1110}
+          height={600}
+          className="hidden md:block lg:hidden"
+          src={imageTablet}
+          alt="A personal project"
+        />
       </figure>
 
       {/* Hero Content */}

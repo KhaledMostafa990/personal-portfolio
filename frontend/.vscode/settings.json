@@ -17,9 +17,4 @@
   "editor.fontSize": 15,
   "reactSnippets.settings.prettierEnabled": true,
   "vs-code-prettier-eslint.prettierLast": true,
-  "[typescript]": {
-    "emmet.triggerExpansionOnTab": true,
-    "editor.formatOnSave": true,
-    "editor.cursorBlinking": "smooth"
-  }
 }

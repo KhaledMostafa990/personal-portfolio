@@ -2,17 +2,20 @@
 
 import Link from 'next/link';
 
-import { useSelector } from 'react-redux';
-import { GlobalData } from '@/store/client/globalData';
+// import { useSelector } from 'react-redux';
+// import { GlobalData } from '@/store/client/globalData';
 
 import { Logo, SecondaryButton } from '@/components/base';
 import { NavBar, Section, Row } from '@/components/layout';
+import { globalClientStaticData } from '@/store/client/ConstantData';
 import { SocialIcons } from '../components/SocialIcons';
 
 export default function Footer() {
-  const { navListItems, contactHeading, contactCtaText } = useSelector(
-    ({ globalData }: { globalData: GlobalData }) => globalData,
-  );
+  // disable redux for real needs
+  // const { navListItems, contactHeading, contactCtaText } = useSelector(
+  //   ({ globalData }: { globalData: GlobalData }) => globalData,
+  // );
+  const { navListItems, contactHeading, contactCtaText } = globalClientStaticData;
 
   return (
     <>

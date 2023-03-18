@@ -4,12 +4,20 @@ import heroImageTablet from 'public/images/homepage/tablet/image-homepage-hero.j
 import profileImage from 'public/images/homepage/desktop/image-homepage-profile.jpg';
 import profileImageTablet from 'public/images/homepage/tablet/image-homepage-profile.jpg';
 
+import { baseUrl } from '@/config/apis';
+import { getMainInfo, MainInfo } from '@/store/server/mainData';
+
 import { Section, Row } from '@/components/layout';
+import Hero, { HeroProps } from '@/features/Hero';
+import AboutMe, { AboutMeProps } from '@/features/AboutMe';
 
-import Hero from '@/features/Hero';
-import AboutMe from '@/features/AboutMe';
+export default async function Home() {
+  let mainData: MainInfo | null = null;
+  let heroData: HeroProps | null = null;
+  let aboutMeData: AboutMeProps | null = null;
 
-export default function Home() {
+  ({ mainData, heroData, aboutMeData } = await getHomeData(mainData, heroData, aboutMeData));
+
   return (
     <>
       <Section gridContainer>
@@ -20,23 +28,62 @@ export default function Home() {
 
       <Section gridContainer>
         <Row className="flex flex-col gap-8 md:flex-row">
-          <AboutMe data={aboutData} />
+          <AboutMe data={aboutMeData} />
         </Row>
       </Section>
     </>
   );
 }
 
-// Hero Mock data example
-const heroData = {
+async function getHomeData(
+  mainData: MainInfo | null,
+  heroData: HeroProps | null,
+  aboutMeData: AboutMeProps | null,
+) {
+  mainData = await getMainInfo();
+
+  if (mainData) {
+    // console.log('server data...', mainData);
+    // filter desktop and tablet image function
+    const filteredImage = (images: string[], targetSize: number) => {
+      // eslint-disable-next-line no-nested-ternary
+      targetSize = targetSize === 3 ? 3 : targetSize === 2 ? 2 : 1;
+      const filtered = images.filter(
+        (img: string) => img.charAt(img.length - 6) === `${targetSize}`,
+      )[0];
+      return filtered;
+    };
+
+    heroData = {
+      ...heroMockData,
+      heading: mainData.heroTitle,
+      image: `${baseUrl}/${filteredImage(mainData.heroImageUrls, 3)}`,
+      imageTablet: `${baseUrl}/${filteredImage(mainData.heroImageUrls, 2)}`,
+    };
+    aboutMeData = {
+      ...aboutMockData,
+      description: mainData.aboutMe,
+      image: `${baseUrl}/${filteredImage(mainData.personalImageUrls, 3)}`,
+      imageTablet: `${baseUrl}/${filteredImage(mainData.personalImageUrls, 2)}`,
+    };
+  } else {
+    // console.log('client data...');
+    heroData = heroMockData;
+    aboutMeData = aboutMockData;
+  }
+  return { mainData, heroData, aboutMeData };
+}
+
+// Hero Mock data example (in case server is not available)
+const heroMockData = {
   heading: 'Hey, I’m Alex Spencer and I love building beautiful websites',
   ctaText: 'About ME',
   image: heroImage,
   imageTablet: heroImageTablet,
 };
 
-// About Mock data example
-const aboutData = {
+// About Mock data example (in case server is not available)
+const aboutMockData = {
   heading: 'About Me',
   projectsCtaText: 'Go To Portfolio',
   description:

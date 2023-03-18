@@ -1,37 +1,16 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 
 import { createSliceReducer } from '@/utils/lib/state/createSliceReducer';
-import { globalDataState } from './mockData';
+import { globalClientStaticData } from './ConstantData';
 
 export interface GlobalData {
-  socialMediaIcons: any[];
   navListItems: string[];
-  logoSrc: string;
+  socialMediaIcons: any[];
   contactCtaText: string;
   contactHeading: string;
-  projectsData: Project[];
 }
 
-interface AdjacentProject {
-  id: any;
-  name: string;
-}
-
-export interface Project {
-  id: any;
-  name: string;
-  description: string;
-  mainImage: any;
-  heroImage: any;
-  showcaseImagesUrls: any[];
-  aboutProject: string;
-  demo: string;
-  builtWith: string[];
-  next: AdjacentProject;
-  prev: AdjacentProject;
-}
-
-const globalDataSlice = createSliceReducer('globalData', globalDataState, {
+const globalDataSlice = createSliceReducer('globalData', globalClientStaticData, {
   getGlobalData: (state, action: PayloadAction<GlobalData>) => {
     return action.payload;
   },

@@ -1,22 +1,36 @@
 'use clirent';
 
-import Image from 'next/image';
 import Link from 'next/link';
-
 import { Metadata } from 'next';
+import Image, { StaticImageData } from 'next/image';
+
+import { Project } from '@/store/server/projects';
 
 import { SecondaryButton } from '@/components/base';
 import { Row, Section } from '@/components/layout';
-import { projectsData } from '@/store/client/mockData';
+import { getProjectsData } from '../page';
 
-export default function Page({ params }: { params: { project: string } }) {
+export default async function Page({ params }: { params: { project: string } }) {
   const { project: projectId } = params;
+  let projects: Project[] | null = null;
+
+  projects = await getProjectsData(projects);
+
   return (
     <>
-      {projectsData
-        .filter((project) => `${project.id}` === projectId)
+      {projects
+        ?.filter((project) => `${project.id}` === projectId)
         .map(
-          ({ name, description, demo, heroImage, showcaseImagesUrls, builtWith, aboutProject }) => (
+          ({
+            name,
+            description,
+            heroImageUrls,
+            showcaseImagesUrls,
+            demo,
+            technologies,
+            aboutProject,
+            type,
+          }) => (
             <>
               <Section gridContainer className="lg:translate-y-20">
                 <Row className="flex min-h-fit flex-col gap-8  lg:flex-row lg:flex-wrap lg:justify-between">
@@ -26,7 +40,9 @@ export default function Page({ params }: { params: { project: string } }) {
                       <figure className="relative flex h-auto w-full justify-center md:max-w-fit md:flex-1 md:justify-start">
                         <Image
                           className="h-auto max-h-[500px] min-w-full max-w-[1110px]"
-                          src={heroImage}
+                          src={heroImageUrls[0]}
+                          width={1110}
+                          height={500}
                           alt="A personal project"
                         />
                       </figure>
@@ -43,11 +59,15 @@ export default function Page({ params }: { params: { project: string } }) {
                           {description}
                         </p>
 
-                        <p className="h-full max-w-[250px] text-primary-default">
-                          <span>{builtWith.join(' / ')}</span>
+                        <p className="h-full max-w-md text-primary-default">
+                          <span>{type.join(' / ')}</span>
                         </p>
 
-                        <Link href={`/${demo}`}>
+                        <p className="h-full max-w-xs text-primary-default">
+                          <span>{technologies.join(' / ')}</span>
+                        </p>
+
+                        <Link href={`${demo}`} target="_blank">
                           <SecondaryButton classes="max-w-fit">View Project</SecondaryButton>
                         </Link>
                       </div>
@@ -67,18 +87,25 @@ export default function Page({ params }: { params: { project: string } }) {
                         </h3>
 
                         {/* hero image */}
-                        {showcaseImagesUrls.map((image, idx) => (
-                          <figure
-                            key={idx}
-                            className="relative flex h-auto w-full justify-center md:max-w-fit md:flex-1 md:self-center"
-                          >
-                            <Image
-                              className="h-auto max-h-[400px] min-w-full max-w-[635px]"
-                              src={image}
-                              alt="A personal project"
-                            />
-                          </figure>
-                        ))}
+                        {showcaseImagesUrls
+                          .filter((image: string | StaticImageData): boolean => {
+                            if (typeof image !== 'string') return true;
+                            return image.charAt(image.length - 6) === '3';
+                          })
+                          .map((image: any, idx: any) => (
+                            <figure
+                              key={idx}
+                              className="relative flex h-auto w-full justify-center md:max-w-fit md:flex-1 md:self-center"
+                            >
+                              <Image
+                                className="h-auto max-h-[400px] min-w-full max-w-[635px]"
+                                src={image}
+                                width={635}
+                                height={400}
+                                alt="A personal project"
+                              />
+                            </figure>
+                          ))}
                       </div>
                     </Row>
                   </Section>
@@ -90,14 +117,18 @@ export default function Page({ params }: { params: { project: string } }) {
     </>
   );
 }
+
 export async function generateMetadata({
   params,
 }: {
   params: { project: string };
 }): Promise<Metadata> {
   const { project: projectId } = params;
+  let projects: Project[] | null = null;
 
-  const project = projectsData.find((p) => `${p.id}` === projectId);
+  projects = await getProjectsData(projects);
+
+  const project = projects.find((p) => `${p.id}` === projectId);
 
   return {
     title: project?.name,

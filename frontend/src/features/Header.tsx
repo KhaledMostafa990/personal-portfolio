@@ -2,15 +2,17 @@
 
 import React, { useRef } from 'react';
 import Link from 'next/link';
-import { useSelector } from 'react-redux';
-import { GlobalData } from '@/store/client/globalData';
+// import { useSelector } from 'react-redux';
+// import { GlobalData } from '@/store/client/globalData';
 
 import { menuClickHandler, useViewportOnResize } from '@/utils';
 import { HamburgerButton, Logo, Overlay } from '@/components/base';
 import { NavBar } from '@/components/layout';
+import { globalClientStaticData } from '@/store/client/ConstantData';
 
 export default function Header() {
-  const { navListItems } = useSelector(({ globalData }: { globalData: GlobalData }) => globalData);
+  // const { navListItems } = useSelector(({ globalData }: { globalData: GlobalData }) => globalData);
+  const { navListItems } = globalClientStaticData;
 
   const headerRef = useRef<HTMLDivElement | null>(null);
   const logoRef = useRef<HTMLElement | null>(null);
