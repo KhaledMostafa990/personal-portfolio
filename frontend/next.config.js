@@ -4,7 +4,7 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ['localhost', process.env.BASE_API_URL],
+    domains: ['localhost', `${process.env.BASE_API_URL}` || 'http://localhost:8080'],
   },
 }
 
