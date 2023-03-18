@@ -6,16 +6,33 @@ import { ModelsTemplate } from './ModelsTemplate';
 const ProjectSchema: Schema = new Schema({        
     name: { type: String, required: true },
     description: { type: String, required: true },
-    mainImageUrl: { type: String, required: true },
-    heroImageUrl: { type: String, required: true },
+    mainImageUrls: { type: [String], required: true },
+    heroImageUrls: { type: [String], required: true },
     showcaseImagesUrls: { type: [String], required: true },
-    'about-project': { type: String, required: true },
-    'project-demo-url': { type: String, required: true },
-    'built-with': { type: [String], required: true }
+    aboutProject: { type: String, required: true },
+    demo: { type: String, required: true },
+    type:{type: [String], required: true},
+    technologies: { type: [String], required: true },
+    nextProject: {
+      id: {
+        type: String
+      },
+      name: {
+        type: String
+      }
+    },
+    previousProject:{
+      id: {
+        type: String
+      },
+      name: {
+        type: String
+      }
+    },
 },
 {
     toJSON: {
-      transform(doc, ret) {
+      transform(doc, ret: any) {
         ret.id = ret._id;
         delete ret._id;        
         delete ret.__v;
@@ -30,30 +47,47 @@ const ProjectSchema: Schema = new Schema({
 export const ProjectValidationSchema = Joi.object({
     name: Joi.string().required(),
     description: Joi.string().required(),
-    mainImageUrl: Joi.string().uri(),
-    heroImageUrl: Joi.string().uri(),
+    mainImageUrls: Joi.array().items(Joi.string().uri()),
+    heroImageUrls: Joi.array().items(Joi.string().uri()),
     showcaseImagesUrls: Joi.array().items(Joi.string().uri()),
-    'about-project': Joi.string().required(),
-    'project-demo-url': Joi.string().required(),
-    'built-with': Joi.array().items(Joi.string()).required(),
+    aboutProject: Joi.string().required(),
+    demo: Joi.string().required(),
+    type: Joi.array().items(Joi.string()).required(),
+    technologies: Joi.array().items(Joi.string()).required(),
+    nextProject: Joi.object().keys({
+      id: Joi.string(),
+      name: Joi.string(),
+    }),
+    previousProject: Joi.object().keys({
+      id: Joi.string(),
+      name: Joi.string(),
+    }),
 });
+
+interface AdjacentProject {
+  id: any;
+  name: string;
+}
 
 // Main Info interface 
 export interface ProjectDoc extends Document {    
     id: string;
     name: string;
     description: string;
-    mainImageUrl: string;
-    heroImageUrl: string;
+    mainImageUrls: string[];
+    heroImageUrls: string[];
     showcaseImagesUrls: string[];
-    'about-project': string;
-    'project-demo-url': string;
-    'built-with': string[];
+    aboutProject: string;
+    demo: string;
+    type: string[];
+    technologies: string[];
+    nextProject?: AdjacentProject;
+    previousProject?:AdjacentProject;
 }    
 
 export const ProjectModel = mongoose.model<ProjectDoc>('Project', ProjectSchema);
 
-export class Project extends ModelsTemplate {
+export class Project extends ModelsTemplate<ProjectDoc> {
 protected model: Model<ProjectDoc>;
 
   constructor(model: Model<ProjectDoc>) {

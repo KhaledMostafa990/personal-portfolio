@@ -14,7 +14,7 @@ class ContactController {
     
     async getContactSubmission(req: Request, res: Response) {
         try {
-            const contactSubmission:ContactDoc = await this.model.findOne({});            
+            const contactSubmission:ContactDoc|null = await this.model.findOne({});            
             res.status(200).json({ contactSubmission });
         } catch (error) {
             res.status(500).json({ error });

@@ -51,8 +51,8 @@ class MainInfoController {
 
     async uploadMainFiles(req: Request, res: Response, next: NextFunction) {
          uploadMainImages.fields([
-            { name: 'hero-image', maxCount: 1 },
-            { name: 'personal-image', maxCount: 1 },                                
+            { name: 'heroImageUrls', maxCount: 3 },
+            { name: 'personalImageUrls', maxCount: 3 },                                
         ])(req, res, async (err: any) => {
             
             if (err) return res.status(400).json({ error: err.message });
@@ -61,13 +61,12 @@ class MainInfoController {
             
             if (error) return res.status(400).json({ error });       
             
-
             if (!req.files) return res.status(400).json({ error: "No files were uploaded" });       
 
-            const { "hero-image":heroImage, "personal-image":personalImage }:any = req.files;
+            const { heroImageUrls, personalImageUrls }:any = req.files;
 
-            value.heroImage = heroImage[0].path;
-            value.personalImage = personalImage[0].path;
+            value.heroImageUrls = heroImageUrls.map((file: Express.Multer.File) => file.filename);
+            value.personalImageUrls = personalImageUrls.map((file: Express.Multer.File) => file.filename);
 
             req.body.value = value;
             next();

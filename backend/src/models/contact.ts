@@ -37,7 +37,7 @@ export interface ContactDoc extends Document {
 
 export const ContactModel = mongoose.model<ContactDoc>('contact', ContactSchema);
 
-export class Contact extends ModelsTemplate {
+export class Contact extends ModelsTemplate<ContactDoc> {
 protected model: Model<ContactDoc>;
 
   constructor(model: Model<ContactDoc>) {

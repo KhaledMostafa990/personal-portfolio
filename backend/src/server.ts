@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config({ path: './config.env' });
 
-import { connectDB, DB_CONNECTION, PORT, corsOptions } from './config';
+import { connectDB, DB_CONNECTION, PORT, corsOptions, helmetOptions } from './config';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -19,6 +19,14 @@ async function start() {
     app.use(morgan('common'))
         
     app.use(helmet());
+    app.use(helmet.contentSecurityPolicy(helmetOptions.contentSecurityPolicy));
+    app.use(helmet.frameguard());
+    app.use(helmet.hsts());
+    app.use(helmet.xssFilter());
+    app.use(helmet.noSniff());
+    app.use(helmet.referrerPolicy({policy: 'same-origin' }));
+    app.use(helmet.dnsPrefetchControl());
+    app.use(helmet.expectCt({enforce: true, maxAge: 30}));
         
     app.use(cors(corsOptions));
     

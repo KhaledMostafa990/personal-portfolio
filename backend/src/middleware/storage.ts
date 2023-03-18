@@ -6,9 +6,8 @@ const avatarsStorage = multer.diskStorage({
     cb(null, './public/images/user-info');
   },
 
-  filename: (req, file, cb) => {
-    const fileExtention = path.extname(file.originalname);
-    cb(null, Date.now() + '_' + file.fieldname + fileExtention);
+  filename: (req, file, cb) => {    
+    cb(null, Date.now() + '_' + file.originalname);
   },
 });
 
@@ -17,9 +16,8 @@ const projectStorage = multer.diskStorage({
     cb(null, './public/images/project');
   },
 
-  filename: (req, file, cb) => {
-    const fileExtention = path.extname(file.originalname);
-    cb(null, Date.now() + '_' + file.fieldname + fileExtention);
+  filename: (req, file, cb) => {    
+    cb(null, Date.now() + '_' + file.originalname);
   },
 });
 
