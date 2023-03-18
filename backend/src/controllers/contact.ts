@@ -47,7 +47,7 @@ class ContactController {
             await this.validateContactSubmissionData(req, res, async () => {
                 const {id} = req.params;
                 const result = await this.model.updateOne(id, req.body.value);
-                res.status(200).json({ message: "contactSubmission updated successfully" });
+                res.status(200).json({ message: "contact submission updated successfully" });
             });
         } catch (error) {
             res.status(500).json({ error });
@@ -59,7 +59,7 @@ class ContactController {
             const { id } = req.params;
             const result = await this.model.deleteOne(id);            
 
-            res.status(200).json({ message: "ContactSubmission deleted successfully" });
+            res.status(200).json({ message: "Contact submission deleted successfully" });
         } catch (error) {
             res.status(500).json({ error });
         }
@@ -67,11 +67,10 @@ class ContactController {
 
     async validateContactSubmissionData(req: Request, res: Response, next: NextFunction) {                 
         const {error, value} = ContactValidationSchema.validate(req.body as ContactDoc);
-        console.log(req.body);
 
         if (error) {
             console.error(error);
-            return res.status(400).json({ error: "Invalid contactSubmission data" });
+            return res.status(400).json({ error: "Invalid contact submission data" });
         }      
         
         req.body.value = value;
