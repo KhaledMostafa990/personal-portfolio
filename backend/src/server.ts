@@ -24,7 +24,7 @@ async function start() {
     app.use(helmet.hsts());
     app.use(helmet.xssFilter());
     app.use(helmet.noSniff());
-    app.use(helmet.referrerPolicy({policy: 'same-origin' }));
+    app.use(helmet.referrerPolicy());
     app.use(helmet.dnsPrefetchControl());
     app.use(helmet.expectCt({enforce: true, maxAge: 30}));
         

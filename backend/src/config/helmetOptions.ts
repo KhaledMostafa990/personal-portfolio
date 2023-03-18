@@ -4,7 +4,7 @@ import { FRONTEND_URL } from ".";
 export const helmetOptions = {
     contentSecurityPolicy: {
       directives: {
-        connectSrc: ["'self'", FRONTEND_URL || 'http://localhost:4000'],
+        connectSrc: ["'self'", FRONTEND_URL || 'http://localhost:3000'],
         workerSrc: ["'self'", 'blob:'],            
         reportUri: '/csp-violation-report',
         ...helmet.contentSecurityPolicy.getDefaultDirectives()

@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "ts-node-dev src/server.ts",
-    "start": "npm-run-all build start:serve",
+    "start": "npm-run-all build:server start:server",
     "build:server": "tsc -p tsconfig.json",
     "start:server": "node dist/server.js"
   },
