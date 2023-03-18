@@ -3,7 +3,7 @@ import { FRONTEND_URL } from '.';
 
 
 
-export const allowedOrigins = [FRONTEND_URL];
+export const allowedOrigins = [FRONTEND_URL || 'http://localhost:3000'];
 
 export const corsOptions: CorsOptions = {
   origin: (origin, callback) => {
@@ -14,7 +14,6 @@ export const corsOptions: CorsOptions = {
     }
   },
   optionsSuccessStatus: 200,
-  credentials: true,
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  allowedHeaders: 'Content-Type,Authorization,Accept,Acecept-Language,Access-Control-Allow-Origin',
+  // credentials: true,
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
 };
