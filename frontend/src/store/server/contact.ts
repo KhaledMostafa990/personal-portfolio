@@ -39,7 +39,7 @@ export const postContactMessage = async (
   contact: ContactInputsValues,
 ): Promise<boolean> => {
   try {
-    const response = await fetch(`${url}/send-message`, {
+    const response = await fetch(`${url}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
