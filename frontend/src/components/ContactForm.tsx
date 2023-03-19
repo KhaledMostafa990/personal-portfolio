@@ -14,7 +14,6 @@ import {
 
 export function ContactForm({
   formInputs,
-  sendMessageUrl,
 }: {
   formInputs: ContactFormInputProps[];
   sendMessageUrl: string;
@@ -30,7 +29,8 @@ export function ContactForm({
     { setSubmitting }: FormikHelpers<ContactInputsValues>,
   ) => {
     try {
-      const success = await postContactMessage(sendMessageUrl, values);
+      console.log(values);
+      const success = await postContactMessage();
       if (success) {
         alert('Thank you for your message! We will be in touch soon.');
       }
@@ -38,7 +38,7 @@ export function ContactForm({
     } catch (error) {
       alert('Oops! Something went wrong. Please try again later.');
       setSubmitting(false);
-    }    
+    }
   };
   const validateInput = (input: string, getFieldMeta: any) => {
     return !!(getFieldMeta(input).touched && !getFieldMeta(input).error);
