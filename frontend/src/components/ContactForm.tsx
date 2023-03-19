@@ -36,11 +36,9 @@ export function ContactForm({
       }
       setSubmitting(false);
     } catch (error) {
-      console.error(error);
       alert('Oops! Something went wrong. Please try again later.');
       setSubmitting(false);
-    }
-    // setSubmitting(false); // Todo: Remove when API completed
+    }    
   };
   const validateInput = (input: string, getFieldMeta: any) => {
     return !!(getFieldMeta(input).touched && !getFieldMeta(input).error);
