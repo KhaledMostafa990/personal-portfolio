@@ -3,10 +3,13 @@ import { FRONTEND_URL } from '.';
 
 
 
-export const allowedOrigins = [FRONTEND_URL || 'http://localhost:3000'];
+const allowedOrigins:string[] = [];
+
 
 export const corsOptions: CorsOptions = {
   origin: (origin, callback) => {
+    allowedOrigins.push(FRONTEND_URL|| 'http://localhost:3000');
+
     if (allowedOrigins.indexOf(`${origin}`) !== -1 || !origin) {
       callback(null, true);
     } else {
@@ -14,6 +17,6 @@ export const corsOptions: CorsOptions = {
     }
   },
   optionsSuccessStatus: 200,
-  // credentials: true,
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  // credentials: process.env.NODE_ENV === 'production' ? true : false,
 };
