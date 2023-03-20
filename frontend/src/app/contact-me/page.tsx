@@ -24,14 +24,16 @@ export default async function Contact() {
         <Row className="flex flex-col gap-14 lg:gap-32">
           <Section className="h-full w-full">
             <Row className="">
-              <div className="flex flex-col gap-8 border-y border-light-grey md:h-full md:self-start lg:flex-row  lg:gap-40">
+              <div className="flex flex-col gap-8 border-y border-light-grey py-12 md:h-full md:self-start lg:flex-row  lg:gap-40">
                 <h2 className="min-w-[250px] max-w-md pt-8 text-4xl text-dark-grey lg:flex-1 lg:pt-0">
                   {contactData.heading}
                 </h2>
-                <p className="max-w-3xl text-dark-grey">{contactData.description}</p>
-              </div>
 
-              <SocialIcons />
+                <div className="flex flex-col items-start gap-8">
+                  <p className="max-w-3xl text-dark-grey">{contactData.description}</p>
+                  <SocialIcons onLight />
+                </div>
+              </div>
             </Row>
           </Section>
 

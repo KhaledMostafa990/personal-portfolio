@@ -5,7 +5,7 @@ import Link from 'next/link';
 // import { useSelector } from 'react-redux';
 // import { GlobalData } from '@/store/client/globalData';
 
-import { menuClickHandler, useViewportOnResize } from '@/utils';
+import { toggleClassHandler, useViewportOnResize } from '@/utils';
 import { HamburgerButton, Logo, Overlay } from '@/components/base';
 import { NavBar } from '@/components/layout';
 import { globalClientStaticData } from '@/store/client/ConstantData';
@@ -15,7 +15,6 @@ export default function Header() {
   const { navListItems } = globalClientStaticData;
 
   const headerRef = useRef<HTMLDivElement | null>(null);
-  const logoRef = useRef<HTMLElement | null>(null);
   const navRef = useRef<HTMLElement | null>(null);
   const navList = useRef<HTMLElement | null>(null);
   const menuBtnRef = useRef<HTMLButtonElement | null>(null);
@@ -24,18 +23,17 @@ export default function Header() {
 
   const { isDesktop } = useViewportOnResize();
 
-  const toggleMenu = menuClickHandler(
-    menuBtnRef.current,
-    navRef.current,
-    logoRef.current,
-    overlayRef.current,
+  const toggleMenu = toggleClassHandler(
     activeClass,
+    menuBtnRef.current!,
+    navRef.current!,
+    overlayRef.current!,
   );
 
   if (isDesktop && navRef?.current?.classList.contains('active')) toggleMenu();
 
   return (
-    <header className="z-20 md:fixed md:h-[150px] md:w-full md:bg-background-default">
+    <header className="z-20 md:fixed md:h-[160px] md:w-full md:bg-background-default">
       <Overlay overlayRef={overlayRef} />
 
       <div

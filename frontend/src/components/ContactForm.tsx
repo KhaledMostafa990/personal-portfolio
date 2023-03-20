@@ -1,7 +1,5 @@
 'use client';
 
-// import Image from 'next/image';
-// import errorIcon from 'public/assets/contact/desktop/icon-error.svg';
 import * as Yup from 'yup';
 
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
@@ -11,6 +9,7 @@ import {
   ContactFormInputProps,
   ContactInputsValues,
 } from '@/store/server/contact';
+import { useAlertContext } from '@/store/AlertContext';
 
 export function ContactForm({
   formInputs,
@@ -24,6 +23,12 @@ export function ContactForm({
     message: Yup.string().min(20).max(200).required('Message is required'),
   });
 
+  const { onOpen } = useAlertContext();
+
+  const validateInput = (input: string, getFieldMeta: any) => {
+    return !!(getFieldMeta(input).touched && !getFieldMeta(input).error);
+  };
+
   const handleContactSubmit = async (
     values: ContactInputsValues,
     { setSubmitting }: FormikHelpers<ContactInputsValues>,
@@ -31,18 +36,19 @@ export function ContactForm({
     try {
       console.log(values);
       const success = await postContactMessage();
+
       if (success) {
-        alert('Thank you for your message! We will be in touch soon.');
+        // alert('Thank you for your message! We will be in touch soon.');
+        onOpen('success', 'Thank you for your message! We will be in touch soon.');
       }
       setSubmitting(false);
     } catch (error) {
-      alert('Oops! Something went wrong. Please try again later.');
+      // alert('Oops! Something went wrong. Please try again later.');
+      onOpen('error', 'Oops! Something went wrong. Please try again later.');
       setSubmitting(false);
     }
   };
-  const validateInput = (input: string, getFieldMeta: any) => {
-    return !!(getFieldMeta(input).touched && !getFieldMeta(input).error);
-  };
+
   return (
     <Formik
       initialValues={{ name: '', email: '', message: '' }}
@@ -57,8 +63,8 @@ export function ContactForm({
                 {input.label}
               </label>
               <Field
-                className={`h-12 border-b-2 border-transparent bg-light-grey px-2 
-                text-[13px] text-dark-grey placeholder:italic  placeholder:text-dark-grey/40
+                className={`h-12 border-b-2 border-transparent bg-dark-grey/5 px-2 
+                text-[13px] text-dark-grey placeholder:italic  placeholder:text-dark-grey/50
                focus:border-primary-default focus:outline-none
                 ${validateInput(input.name, getFieldMeta) && 'border-primary-default'}`}
                 type={input.type}
@@ -94,12 +100,18 @@ function InputControl({ children, className }: { children: React.ReactNode; clas
 
 function ErrorMessageWrapper({ input }: { input: string }) {
   return (
-    <div className="absolute bottom-2 right-0 flex items-center gap-3 text-xs italic text-error">
+    <div className="text-md absolute bottom-2 right-4 flex items-center gap-3 italic text-error">
       <ErrorMessage name={input}>
         {(msg) => (
           <>
             {msg}
             {/* <Image src={errorIcon} alt="error icon" width={16} height={16} /> */}
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+              <g fill="none" fill-rule="evenodd">
+                <circle cx="10" cy="10" r="10" fill="#fafafa" />
+                <path fill="#F43030" d="M11 14v2H9v-2h2zm0-9v7H9V5h2z" />
+              </g>
+            </svg>
           </>
         )}
       </ErrorMessage>
