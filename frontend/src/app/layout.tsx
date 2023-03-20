@@ -5,6 +5,8 @@ import ReduxProvider from '@/store/ReduxProvider';
 
 import Header from '@/features/Header';
 import Footer from '@/features/Footer';
+import { AlertProvider } from '@/store/AlertContext';
+import Alert from '@/components/Alert';
 
 const IbarraRealFont = Ibarra_Real_Nova({
   subsets: ['latin'],
@@ -24,13 +26,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         <div>
           <ReduxProvider>
-            <Header />
+            <AlertProvider>
+              <Header />
 
-            <main className="relative flex flex-col gap-24 overflow-hidden pt-24 md:gap-40 md:pt-40">
-              {children}
-            </main>
+              <main className="relative flex flex-col gap-24 overflow-hidden pt-24 md:gap-40 md:pt-40">
+                {children}
+              </main>
 
-            <Footer />
+              <Footer />
+
+              <Alert />
+            </AlertProvider>
           </ReduxProvider>
         </div>
       </body>

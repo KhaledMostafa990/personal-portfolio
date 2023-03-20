@@ -1,3 +1,3 @@
 export * from './useSectionObserver';
-export * from './menuClickHandler';
+export * from './toggleClassHandler';
 export * from './useViewportOnResize';
