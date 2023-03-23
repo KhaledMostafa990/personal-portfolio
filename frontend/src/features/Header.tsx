@@ -33,7 +33,7 @@ export default function Header() {
   if (isDesktop && navRef?.current?.classList.contains('active')) toggleMenu();
 
   return (
-    <header className="z-20 md:fixed md:h-[160px] md:w-full md:bg-background-default">
+    <header className="z-20 md:fixed md:h-[144px] md:w-full md:bg-background-default">
       <Overlay overlayRef={overlayRef} />
 
       <div
@@ -44,7 +44,7 @@ export default function Header() {
       >
         <div
           className="xl:col-start-0 col-span-10 col-start-2 flex items-center justify-between py-8 transition-all
-          duration-[0.84s] md:py-16 xl:col-span-12 "
+          duration-[0.84s] md:py-14 xl:col-span-12 "
         >
           <Link href={'/'}>
             <Logo onLight />

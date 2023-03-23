@@ -7,9 +7,9 @@ import profileImageTablet from 'public/images/homepage/tablet/image-homepage-pro
 import { baseUrl } from '@/config/apis';
 import { getMainInfo, MainInfo } from '@/store/server/mainData';
 
-import { Section, Row } from '@/components/layout';
-import Hero, { HeroProps } from '@/features/Hero';
-import AboutMe, { AboutMeProps } from '@/features/AboutMe';
+import Homepage from '@/features/Homepage';
+import { HeroProps } from '@/features/Hero';
+import { AboutMeProps } from '@/features/AboutMe';
 
 export default async function Home() {
   let mainData: MainInfo | null = null;
@@ -18,21 +18,7 @@ export default async function Home() {
 
   ({ mainData, heroData, aboutMeData } = await getHomeData(mainData, heroData, aboutMeData));
 
-  return (
-    <>
-      <Section gridContainer>
-        <Row className="flex flex-col gap-5">
-          <Hero data={heroData} />
-        </Row>
-      </Section>
-
-      <Section gridContainer>
-        <Row className="flex flex-col gap-8 md:flex-row">
-          <AboutMe data={aboutMeData} />
-        </Row>
-      </Section>
-    </>
-  );
+  return <Homepage heroData={heroData} aboutMeData={aboutMeData} />;
 }
 
 async function getHomeData(

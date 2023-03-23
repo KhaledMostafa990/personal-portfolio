@@ -15,7 +15,7 @@ export default function AboutMe({ data }: { data: AboutMeProps }) {
   return (
     <>
       {/* hero image */}
-      <figure className="relative h-auto w-full md:overflow-hidden">
+      <figure className="relative h-auto w-full translate-x-[100%] md:translate-y-[20%] md:translate-x-[40%] md:overflow-hidden lg:translate-x-[40%]">
         <Image
           width={540}
           height={600}
@@ -26,7 +26,7 @@ export default function AboutMe({ data }: { data: AboutMeProps }) {
       </figure>
 
       {/* Hero Content */}
-      <div className="flex flex-col gap-6 border-y border-light-grey pb-10 md:pb-0 xl:pr-16">
+      <div className="about-content flex translate-y-[100%] flex-col gap-6 border-y border-light-grey pb-10 md:pb-0 xl:pr-16">
         <h2 className="max-w-md py-10 text-4xl text-dark-grey lg:max-w-[310px]">{heading}</h2>
         <p className="max-w-lg text-dark-grey">{description}</p>
         <Link href="/portfolio">
