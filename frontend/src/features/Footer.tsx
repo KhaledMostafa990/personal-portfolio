@@ -19,7 +19,7 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="mt-20 flex flex-col gap-20 md:mt-40 md:gap-40">
+      <footer id="footer" className="footer mt-20 flex flex-col gap-20 md:mt-40 md:gap-40">
         <Section gridContainer>
           <Row className="flex flex-col gap-16">
             <div className="flex flex-col items-center justify-center gap-6 md:flex-row md:gap-10">

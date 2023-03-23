@@ -5,11 +5,13 @@ export function PrimaryButton({
   classes,
   isDisabled,
   withIcon,
+  onClick,
 }: {
   children: React.ReactNode;
   classes?: string;
   isDisabled?: boolean;
   withIcon?: boolean;
+  onClick?: () => void;
 }) {
   const disabled = isDisabled ? 'bg-light-grey' : 'bg-dark-blue';
   return (
@@ -18,8 +20,9 @@ export function PrimaryButton({
         className={`group relative flex h-12 items-center gap-6 overflow-hidden rounded-sm pr-10 font-publicSans
         text-xs font-light uppercase text-white ${disabled} transition-all
         duration-500 hover:bg-primary-default 
-        ${classes}
+        ${classes}        
       `}
+        onClick={onClick}
       >
         {withIcon && (
           <div className={`flex h-full items-center justify-center bg-black/10 px-5`}>

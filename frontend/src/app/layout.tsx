@@ -29,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <AlertProvider>
               <Header />
 
-              <main className="relative flex flex-col gap-24 overflow-hidden pt-24 md:gap-40 md:pt-40">
+              <main className="relative flex flex-col gap-24 overflow-hidden pt-24 md:gap-40 md:pt-32">
                 {children}
               </main>
 
@@ -46,8 +46,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 export const metadata = {
   title: {
-    default: "Alex Spencer's",
-    template: '%s | Alex Spencer',
+    default: "Alex's portfolio",
+    template: 'Alex | %s ',
   },
   description:
     'I’m a junior front-end developer looking for a new role in an exciting company. I focus on writing accessible HTML, using modern CSS practices and writing clean JavaScript.',
