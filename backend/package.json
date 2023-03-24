@@ -5,9 +5,9 @@
   "main": "server.js",
   "scripts": {
     "dev": "ts-node-dev src/server.ts",
-    "start": "npm-run-all build:server start:server",
-    "build:server": "tsc -p tsconfig.json",
-    "start:server": "node dist/server.js"
+    "start:all": "npm-run-all build:server start:server",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js"
   },
   "author": "Khaled Farghly",
   "license": "ISC",
