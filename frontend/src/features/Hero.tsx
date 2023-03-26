@@ -18,7 +18,7 @@ export default function Hero({ data }: { data: HeroProps }) {
     event.preventDefault();
     const sectionName = event.currentTarget.getAttribute('href')?.slice(1);
     const section = document.getElementById(sectionName || '');
-    if (section) scrollIntoView(section, 'end');
+    if (section) scrollIntoView(section, 'center');
   };
 
   return (
