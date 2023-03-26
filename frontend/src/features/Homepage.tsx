@@ -45,7 +45,6 @@ function useHomeAnimations() {
       pinSpacing: 'margin',
       start: 'top 144px',
       end: 'bottom 56%',
-      markers: true,
     },
     media: [
       {
@@ -67,7 +66,6 @@ function useHomeAnimations() {
       start: 'top 20%',
       end: '+=200px 40%',
       pinSpacing: 'margin',
-      markers: true,
     },
   });
 
