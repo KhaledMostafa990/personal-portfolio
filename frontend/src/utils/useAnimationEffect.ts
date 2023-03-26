@@ -5,14 +5,11 @@ import { gsap } from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 
 interface AnimationEffectProps {
-  target?: string | Element;
-  scrollTriggerElement?: string | Element;
+  target: string | Element | Element[] | string[];
+  scrollTriggerElement?: string | Element | Element[] | string[];
   scrollOptions?: any;
   animationOptions?: gsap.TweenVars;
-  media?: {
-    size: 'mobile' | 'tablet' | 'desktop' | 'desktopLarge';
-    animationsEffect: AnimationEffectProps;
-  }[];
+  media?: string;
 }
 
 export function useAnimationEffect({
@@ -23,13 +20,6 @@ export function useAnimationEffect({
   media,
 }: AnimationEffectProps) {
   const [isAnimationReady, setIsAnimationReady] = useState(false);
-  const [animationEffect] = useState({
-    scrollTrigger: {
-      trigger: scrollTriggerElement,
-      ...scrollOptions,
-    },
-    ...animationOptions,
-  });
 
   useEffect(() => {
     if (!isAnimationReady && scrollTriggerElement) {
@@ -42,35 +32,23 @@ export function useAnimationEffect({
     if (isAnimationReady) {
       const anim = gsap.matchMedia();
 
-      if (!target) return;
-
       anim.add(
         {
-          mobile: '(max-width: 767px)',
-          tablet: '(max-width: 1023px)',
-          desktop: '(max-width: 1439px)',
-          desktopLarge: '(min-width: 1440px)',
+          isMedia: media ?? '(min-width: 370px)',
         },
         (context: any) => {
-          let currentAnimationEffect = animationEffect;
-
-          if (media) {
-            media.forEach(({ size, animationsEffect }) => {
-              if (context.conditions[size] === true) {
-                currentAnimationEffect = {
-                  ...currentAnimationEffect,
-                  scrollTrigger: {
-                    ...currentAnimationEffect.scrollTrigger,
-                    ...animationsEffect.scrollOptions,
-                  },
-                };
-              }
+          const { isMedia } = context.conditions;
+          if (isMedia) {
+            gsap.to(target, {
+              scrollTrigger: {
+                trigger: scrollTriggerElement,
+                ...scrollOptions,
+              },
+              ...animationOptions,
             });
           }
-
-          gsap.to(target, currentAnimationEffect);
         },
       );
     }
-  }, [isAnimationReady, target, animationEffect, media, animationOptions]);
+  }, [isAnimationReady, target, scrollTriggerElement, scrollOptions, animationOptions, media]);
 }
