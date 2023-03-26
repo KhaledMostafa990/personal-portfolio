@@ -15,7 +15,7 @@ export default function AboutMe({ data }: { data: AboutMeProps }) {
   return (
     <>
       {/* hero image */}
-      <figure className="relative h-auto w-full translate-x-[100%] md:translate-y-[20%] md:translate-x-[40%] md:overflow-hidden lg:translate-x-[40%]">
+      <figure className="relative h-auto w-full translate-x-[125%] md:translate-x-[40%]  md:overflow-hidden lg:translate-x-[40%]">
         <Image
           width={540}
           height={600}
