@@ -1,24 +1,15 @@
 import React from 'react';
 
-interface SectionProps {
-  className?: string;
-  gridContainer?: boolean;
-  id?: string;
-  ref?: React.RefObject<HTMLElement | any>;
-  dataSection?: string;
-  children: React.ReactNode;
-}
+// interface SectionProps {
+//   gridContainer?: boolean;
+//   dataSection?: string;
+//   children: React.ReactNode;
+//   props: any;
+// }
 
-export function Section({
-  children,
-  className,
-  id,
-  ref,
-  dataSection,
-  gridContainer,
-}: SectionProps) {
+export function Section({ dataSection, gridContainer, children, ...props }: any) {
   return (
-    <section id={id} ref={ref} data-section={dataSection} className={` ${className}`}>
+    <section data-section={dataSection} className={` ${props.props?.className}`} {...props}>
       {gridContainer ? <div className="container">{children}</div> : <div>{children}</div>}
     </section>
   );

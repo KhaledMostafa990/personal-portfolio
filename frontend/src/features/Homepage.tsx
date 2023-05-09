@@ -6,7 +6,7 @@ import AboutMe, { AboutMeProps } from '@/features/AboutMe';
 
 import { gsap } from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
-import { useAnimationEffect } from '@/utils';
+import { useEffect } from 'react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -37,65 +37,70 @@ export default function HomePage({
 }
 
 function useHomeAnimations() {
-  useAnimationEffect({
-    target: '.hero',
-    scrollTriggerElement: '.hero',
-    scrollOptions: {
-      pin: true,
-      pinSpacing: 'margin',
-      start: 'top 144px',
-      end: 'bottom 56%',
-    },
-    media: [
+  useEffect(() => {
+    const animteONmedia = gsap.matchMedia();
+    animteONmedia.add(
       {
-        size: 'mobile',
-        animationsEffect: {
-          scrollOptions: {
-            pinSpacing: false,
-          },
-        },
+        mob: '(max-width: 767px)',
       },
-    ],
-  });
+      (context) => {
+        const heroTriggerValues = {
+          trigger: '.hero',
+          pin: true,
+          pinSpacing: 'margin',
+          start: 'top 144px',
+          end: 'bottom 56%',
+        };
 
-  useAnimationEffect({
-    target: '.about-me',
-    scrollTriggerElement: '.about-me',
-    scrollOptions: {
-      pin: true,
-      start: 'top 20%',
-      end: '+=200px 40%',
-      pinSpacing: 'margin',
-    },
-  });
+        if (!context?.conditions?.mob) {
+          gsap.to('.hero', {
+            scrollTrigger: {
+              ...heroTriggerValues,
+            },
+          });
+        } else {
+          gsap.to('.hero', {
+            scrollTrigger: {
+              ...heroTriggerValues,
+              pinSpacing: false,
+            },
+          });
+        }
+      },
+    );
 
-  useAnimationEffect({
-    target: '.about-me figure',
-    scrollTriggerElement: '.about-me figure',
-    scrollOptions: {
-      start: 'center 55%',
-      toggleActions: 'play resume complete reverse',
-    },
-    animationOptions: {
+    gsap.to('.about-me', {
+      scrollTrigger: {
+        trigger: '.about-me',
+        pin: true,
+        start: 'top 20%',
+        end: '+=200px 40%',
+        pinSpacing: 'margin',
+      },
+    });
+
+    gsap.to('.about-me figure', {
+      scrollTrigger: {
+        trigger: '.about-me figure',
+        start: 'center 55%',
+        toggleActions: 'play resume complete reverse',
+      },
       x: 0,
       y: 0,
       duration: 0.5,
-      ease: 'bower2',
-    },
-  });
+      ease: 'back.out',
+    });
 
-  useAnimationEffect({
-    target: '.about-content',
-    scrollTriggerElement: '.about-me figure',
-    scrollOptions: {
-      start: 'center 55%',
-      toggleActions: 'play resume complete reverse',
-    },
-    animationOptions: {
+    gsap.to('.about-content', {
+      scrollTrigger: {
+        trigger: '.about-me figure',
+        start: 'center 55%',
+        toggleActions: 'play resume complete reverse',
+      },
       y: 0,
       delay: 0.25,
-      duration: 0.7,
-      ease: 'bower2',
-    },
-  });
+      duration: 0.5,
+      ease: 'back.out',
+    });
+  }, []);
 }

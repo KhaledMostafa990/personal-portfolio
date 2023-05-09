@@ -3,10 +3,11 @@ import { Ibarra_Real_Nova, Public_Sans } from 'next/font/google';
 
 import ReduxProvider from '@/store/ReduxProvider';
 
+import { AlertProvider } from '@/store/AlertContext';
+
+import Alert from '@/components/Alert';
 import Header from '@/features/Header';
 import Footer from '@/features/Footer';
-import { AlertProvider } from '@/store/AlertContext';
-import Alert from '@/components/Alert';
 
 const IbarraRealFont = Ibarra_Real_Nova({
   subsets: ['latin'],
@@ -29,11 +30,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <AlertProvider>
               <Header />
 
-              <main className="relative flex flex-col gap-24 overflow-hidden pt-24 md:gap-40 md:pt-32">
+              {/* <LoadingState> */}
+              {/* <MainContent>{children}</MainContent> */}
+
+              <main className="relative flex flex-col gap-24 overflow-hidden pt-[144px] md:gap-40">
                 {children}
               </main>
 
               <Footer />
+              {/* </LoadingState> */}
 
               <Alert />
             </AlertProvider>
@@ -78,7 +83,7 @@ export const metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_IE',
-    // url: 'https://Alex-Minimalist-Portoflio.vercel.app/',
+    url: 'https://Alex-Minimalist-Portoflio.vercel.app/',
     siteName: 'Minimalist Portfolio',
     title: 'Minimalist Portfolio',
     description:
